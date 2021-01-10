@@ -16,19 +16,17 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $emps = Employee::all();
+        $emps = Employee::with('project')->get();
         $msg = count($emps) == 0 ? 'No employees in database' : 'Employees has been found';
+
         return response()->json(['message' => $msg, 'data' => $emps], 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    public function getEmployeesByProjectId($projectId){
+        $emps = Employee::where('project_id', $projectId)->get();
+        $msg = count($emps) == 0 ? 'No employees for this projects' : 'Employees has been found';
+
+        return response()->json(['message' => $msg, 'data' => $emps], 200);
     }
 
     /**
@@ -46,7 +44,6 @@ class EmployeeController extends Controller
         $emp->lastname = $data['lastname'];
         $emp->birthday = $data['birthday'];
         $emp->roll_on_date = $data['roll_on_date'];
-        $emp->roll_off_date = $data['roll_off_date'];
         $emp->project_id = $data['project_id'];
         $emp->save();
 
@@ -64,17 +61,6 @@ class EmployeeController extends Controller
         $emp = Employee::find($id);
         $msg = !isset($emp) ? 'There is no employee with this given id' : 'Employee has been found';
         return response()->json(['message' => $msg, 'data' => $emp], 200);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**
@@ -96,7 +82,6 @@ class EmployeeController extends Controller
         $emp->lastname = $data['lastname'];
         $emp->birthday = $data['birthday'];
         $emp->roll_on_date = $data['roll_on_date'];
-        $emp->roll_off_date = $data['roll_off_date'];
         $emp->project_id = $data['project_id'];
         $emp->save();
 

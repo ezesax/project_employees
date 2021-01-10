@@ -15,7 +15,11 @@ class Employee extends Model
         'lastname',
         'birthday',
         'roll_on_date',
-        'roll_off_date',
         'project_id'
     ];
+
+    public function project ()
+    {
+        return $this->belongsTo(Project::class, 'project_id');
+    }
 }

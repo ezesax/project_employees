@@ -19,9 +19,8 @@ class CreateEmployeesTable extends Migration
             $table->string('lastname');
             $table->date('birthday');
             $table->date('roll_on_date');
-            $table->date('roll_off_date')->nullable();
             $table->bigInteger('project_id')->unsigned();
-            $table->foreign('project_id')->references('id')->on('projects');
+            $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
             $table->timestamps();
         });
     }

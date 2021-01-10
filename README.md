@@ -1,62 +1,342 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Project Manager API
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+The Project Manager API is a tool that pretends to help you to manage the projects and their employees in a company.
 
-## About Laravel
+## Usage
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+We will then leave the different endpoints from this api.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Projects
+#### Get all projects
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
+```bash
+get: /project
+```
+Response example
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+```bash
+{
+    "message": "Server message",
+    "data": [
+        {
+            "id": 1,
+            "name": "Project Name",
+            "description": "Project description",
+            "created_at": "Created at date",
+            "updated_at": "Updated at date"
+        }
+    ]
+}
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+* message: string
+* data: project object array
 
-## Laravel Sponsors
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+#### Get project by id
 
-### Premium Partners
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/)**
-- **[OP.GG](https://op.gg)**
+```bash
+get: /project/{projectId}
+```
 
-## Contributing
+Response example
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+{
+    "message": "Server message",
+    "data": {
+            "id": 1,
+            "name": "Project Name",
+            "description": "Project description",
+            "created_at": "Created at date",
+            "updated_at": "Updated at date"
+}
+```
 
-## Code of Conduct
+* message: string
+* data: project object
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+#### Create new project
 
-## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+post: /project
+```
 
-## License
+Body example
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+{
+    "name":"Project Name",
+    "description":"Project description"
+}
+```
+
+* name: string
+* description: string
+
+Response example
+
+```bash
+{
+    "message": "Server Message",
+    "data": {
+        "name": "Project name",
+        "description": "Project description",
+        "updated_at": "Updatedat date",
+        "created_at": "Created at date",
+        "id": Project id
+    }
+}
+```
+
+* name: string
+* description: string
+* updated_at: date
+* created_at: date
+* id: int
+
+#### Update an existing project
+
+
+```bash
+put: /project/{projectId}
+```
+
+Body example
+
+```bash
+{
+    "name":"Project new name",
+    "description":"Project new description"
+}
+```
+
+* name: string
+* description: string
+
+Response example
+
+```bash
+{
+    "message": "Server Message",
+    "data": {
+        "id": Project id
+        "name": "Project name",
+        "description": "Project description",
+        "updated_at": "Updatedat date",
+        "created_at": "Created at date"
+    }
+}
+```
+
+* id: int
+* name: string
+* description: string
+* updated_at: date
+* created_at: date
+
+#### Delete project
+
+
+```bash
+delete: /project/{projectId}
+```
+
+Response example
+
+```bash
+{
+    "message": "Server Message",
+    "data": null
+}
+```
+
+### Employees
+#### Get all employees
+
+
+```bash
+get: /employees
+```
+Response example
+
+```bash
+{
+    "message": "Server message",
+    "data": [
+        {
+            "id": employee id,
+            "name": "Employee Name",
+            "lastname": "Employee Lastname",
+            "birthday": "Employee birthday",
+            "roll_on_date": "Employee roll_on date",
+            "project_id": Employee project id,
+            "created_at": "Created at date",
+            "updated_at": "updated at date",
+            "project": {
+                "id": Project id,
+                "name": "Project name",
+                "description": "Project description",
+                "created_at": "Project created at date",
+                "updated_at": "Project updated at date"
+            }
+        }
+	]
+}
+```
+
+* message: string
+* data: employee object array
+
+
+#### Get employee by id
+
+
+```bash
+get: /employee/{employeeId}
+```
+
+Response example
+
+```bash
+{
+    "message": "Server message",
+    "data":
+        {
+            "id": employee id,
+            "name": "Employee Name",
+            "lastname": "Employee Lastname",
+            "birthday": "Employee birthday",
+            "roll_on_date": "Employee roll_on date",
+            "project_id": Employee project id,
+            "created_at": "Created at date",
+            "updated_at": "updated at date",
+    }
+}
+```
+
+* message: string
+* data: employee object
+
+#### Create new employee
+
+
+```bash
+post: /employee
+```
+
+Body example
+
+```bash
+    {
+        "name": "Employee Name",
+        "lastname": "Employee Lastname",
+        "birthday": "Employee birthday",
+        "roll_on_date": "Employee roll_on_date",
+        "project_id": Project id
+    }
+```
+
+* name: string
+* lastname: string
+* birthday: date (format: 'YYYY-MM-DD')
+* roll_on_date: date (format: 'YYYY-MM-DD')
+* project_id: int
+
+Response example
+
+```bash
+{
+    "message": "Server message",
+    "data": {
+        "name": "Employee Name",
+        "lastname": "Employee Lastname",
+        "birthday": "Employee birthday",
+        "roll_on_date": "Employee roll_on_date",
+        "project_id": Project id
+        "updated_at": "Updated at date",
+        "created_at": "Created at date",
+        "id": Employee id
+    }
+}
+```
+
+* name: string
+* lastname: string
+* birthday: date (format: 'YYYY-MM-DD')
+* roll_on_date: date (format: 'YYYY-MM-DD')
+* project_id: int
+* updated_at: date
+* created_at: date
+* id: int
+
+#### Update an existing employee
+
+
+```bash
+put: /employee/{employeeId}
+```
+
+Body example
+
+```bash
+	{
+        "name": "Employee Name",
+        "lastname": "Employee Lastname",
+        "birthday": "Employee birthday",
+        "roll_on_date": "Employee roll_on_date",
+        "project_id": Project id
+    }
+```
+
+* name: string
+* lastname: string
+* birthday: date (format: 'YYYY-MM-DD')
+* roll_on_date: date (format: 'YYYY-MM-DD')
+* project_id: int
+
+Response example
+
+```bash
+{
+    "message": "Server Message",
+    "data": {
+            "id": employee id,
+            "name": "Employee Name",
+            "lastname": "Employee Lastname",
+            "birthday": "Employee birthday",
+            "roll_on_date": "Employee roll_on date",
+            "project_id": Employee project id,
+            "created_at": "Created at date",
+            "updated_at": "updated at date",
+    }
+}
+```
+
+* id: int
+* name: string
+* lastname: string
+* birthday: date (format: 'YYYY-MM-DD')
+* roll_on_date: date (format: 'YYYY-MM-DD')
+* project_id: int
+* updated_at: date
+* created_at: date
+
+#### Delete employee
+
+
+```bash
+delete: /employee/{employeeId}
+```
+
+Response example
+
+```bash
+{
+    "message": "Server Message",
+    "data": null
+}
+```

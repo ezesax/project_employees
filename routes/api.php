@@ -21,4 +21,5 @@ header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS, HEAD');
 Route::namespace('API')->group(function () {
     Route::apiResource('project', 'ProjectController');
     Route::apiResource('employee', 'EmployeeController');
+    Route::get('employee/by_project/{projectId}', 'EmployeeController@getEmployeesByProjectId');
 });
